@@ -1,0 +1,39 @@
+<div class="slider" *ngIf="articles.length > 0">
+  <div class="slider-container">
+    <div class="slide" 
+         *ngFor="let article of articles; let i = index" 
+         [class.active]="i === currentSlide"
+         (click)="openArticle(article.url)">
+      <div class="slide-image">
+        <img [src]="article.urlToImage" 
+             [alt]="article.title"
+             (error)="onImageError($event)">
+      </div>
+      <div class="slide-content">
+        <h2 class="slide-title">{{ article.title }}</h2>
+        <p class="slide-description">{{ article.description }}</p>
+        <div class="slide-meta">
+          <span class="source">{{ article.source.name }}</span>
+          <span class="date">{{ article.publishedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <button class="slider-btn prev" (click)="prevSlide()">
+    <span>‹</span>
+  </button>
+  
+  <button class="slider-btn next" (click)="nextSlide()">
+    <span>›</span>
+  </button>
+  
+  <div class="slider-dots">
+    <button 
+      *ngFor="let article of articles; let i = index"
+      class="dot"
+      [class.active]="i === currentSlide"
+      (click)="goToSlide(i)">
+    </button>
+  </div>
+</div>

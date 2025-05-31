@@ -1,0 +1,117 @@
+<div class="category-page">
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">{{ categoryDisplayName }} Haberleri</h1>
+      <p class="page-subtitle">{{ categoryDisplayName }} kategorisindeki en son haberler</p>
+    </div>
+
+    <div class="content-wrapper">
+      <!-- Sidebar Filters -->
+      <aside class="sidebar">
+        <div class="filter-section">
+          <h3 class="filter-title">Filtrele</h3>
+          
+          <div class="filter-group">
+            <label for="sortBy">Sıralama:</label>
+            <select id="sortBy" [(ngModel)]="sortBy" (change)="onFilterChange()" class="filter-select">
+              <option value="publishedAt">Tarih</option>
+              <option value="title">Başlık</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="sortOrder">Sıra:</label>
+            <select id="sortOrder" [(ngModel)]="sortOrder" (change)="onFilterChange()" class="filter-select">
+              <option value="desc">Azalan</option>
+              <option value="asc">Artan</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="dateFilter">Tarihten sonra:</label>
+            <input 
+              type="date" 
+              id="dateFilter" 
+              [(ngModel)]="dateFilter" 
+              (change)="onFilterChange()"
+              class="filter-input">
+          </div>
+
+          <button (click)="dateFilter = ''; onFilterChange()" class="clear-filters-btn">
+            Filtreleri Temizle
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Loading -->
+        <div class="loading" *ngIf="loading">
+          <div class="spinner"></div>
+          <p>{{ categoryDisplayName }} haberleri yükleniyor...</p>
+        </div>
+
+        <!-- News Grid -->
+        <section class="news-section" *ngIf="!loading && newsArticles.length > 0">
+          <div class="news-grid">
+            <article 
+              class="news-card" 
+              *ngFor="let article of newsArticles"
+              (click)="openArticle(article.url)">
+              <div class="news-image">
+                <img [src]="article.urlToImage" 
+                     [alt]="article.title"
+                     (error)="onImageError($event)">
+              </div>
+              <div class="news-content">
+                <h3 class="news-title">{{ article.title }}</h3>
+                <p class="news-description">{{ article.description }}</p>
+                <div class="news-meta">
+                  <span class="source">{{ article.source.name }}</span>
+                  <span class="date">{{ article.publishedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Pagination -->
+        <section class="pagination-section" *ngIf="!loading && totalPages > 1">
+          <div class="pagination">
+            <button 
+              class="page-btn prev"
+              [disabled]="currentPage === 1"
+              (click)="changePage(currentPage - 1)">
+              Önceki
+            </button>
+            
+            <button 
+              *ngFor="let page of pages"
+              class="page-btn"
+              [class.active]="page === currentPage"
+              (click)="changePage(page)">
+              {{ page }}
+            </button>
+            
+            <button 
+              class="page-btn next"
+              [disabled]="currentPage === totalPages"
+              (click)="changePage(currentPage + 1)">
+              Sonraki
+            </button>
+          </div>
+          
+          <div class="pagination-info">
+            <p>Toplam {{ totalResults }} haber, Sayfa {{ currentPage }} / {{ totalPages }}</p>
+          </div>
+        </section>
+
+        <!-- No Results -->
+        <div class="no-results" *ngIf="!loading && newsArticles.length === 0">
+          <h3>{{ categoryDisplayName }} kategorisinde haber bulunamadı</h3>
+          <p>Lütfen daha sonra tekrar deneyin veya farklı filtreler kullanın.</p>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

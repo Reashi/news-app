@@ -1,0 +1,83 @@
+<div class="home-page">
+  <div class="container">
+    <!-- Slider Section -->
+    <section class="slider-section" *ngIf="sliderArticles.length > 0">
+      <app-slider [articles]="sliderArticles"></app-slider>
+    </section>
+
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading">
+      <div class="spinner"></div>
+      <p>Haberler yükleniyor...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" *ngIf="error && !loading">
+      <h3>Hata Oluştu</h3>
+      <p>{{ error }}</p>
+      <button (click)="loadNews()" class="retry-btn">Tekrar Dene</button>
+    </div>
+
+    <!-- News Grid -->
+    <section class="news-section" *ngIf="!loading && newsArticles.length > 0">
+      <h2 class="section-title">Son Haberler</h2>
+      <div class="news-grid">
+        <article 
+          class="news-card" 
+          *ngFor="let article of newsArticles"
+          (click)="openArticle(article.url)">
+          <div class="news-image">
+            <img [src]="article.urlToImage" 
+                 [alt]="article.title"
+                 (error)="onImageError($event)">
+          </div>
+          <div class="news-content">
+            <h3 class="news-title">{{ article.title }}</h3>
+            <p class="news-description">{{ article.description }}</p>
+            <div class="news-meta">
+              <span class="source">{{ article.source.name }}</span>
+              <span class="date">{{ article.publishedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pagination -->
+    <section class="pagination-section" *ngIf="!loading && totalPages > 1">
+      <div class="pagination">
+        <button 
+          class="page-btn prev"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)">
+          Önceki
+        </button>
+        
+        <button 
+          *ngFor="let page of pages"
+          class="page-btn"
+          [class.active]="page === currentPage"
+          (click)="changePage(page)">
+          {{ page }}
+        </button>
+        
+        <button 
+          class="page-btn next"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)">
+          Sonraki
+        </button>
+      </div>
+      
+      <div class="pagination-info">
+        <p>Toplam {{ totalResults }} haber, Sayfa {{ currentPage }} / {{ totalPages }}</p>
+      </div>
+    </section>
+
+    <!-- No Results -->
+    <div class="no-results" *ngIf="!loading && newsArticles.length === 0">
+      <h3>Henüz haber bulunamadı</h3>
+      <p>Lütfen daha sonra tekrar deneyin.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="search-page">
+  <div class="container">
+    <div class="search-header" *ngIf="searchQuery">
+      <h1 class="search-title">"{{ searchQuery }}" için arama sonuçları</h1>
+      <p class="search-subtitle" *ngIf="!loading && totalResults > 0">
+        {{ totalResults }} sonuç bulundu
+      </p>
+    </div>
+
+    <div class="search-content" *ngIf="!searchQuery && !loading">
+      <div class="no-search">
+        <h2>Arama yapın</h2>
+        <p>Üst menüdeki arama kutusunu kullanarak haber arayabilirsiniz.</p>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading">
+      <div class="spinner"></div>
+      <p>"{{ searchQuery }}" aranıyor...</p>
+    </div>
+
+    <!-- Search Results -->
+    <section class="news-section" *ngIf="!loading && newsArticles.length > 0">
+      <div class="news-grid">
+        <article 
+          class="news-card" 
+          *ngFor="let article of newsArticles"
+          (click)="openArticle(article.url)">
+          <div class="news-image">
+            <img [src]="article.urlToImage" 
+                 [alt]="article.title"
+                 (error)="onImageError($event)">
+          </div>
+          <div class="news-content">
+            <h3 class="news-title">{{ article.title }}</h3>
+            <p class="news-description">{{ article.description }}</p>
+            <div class="news-meta">
+              <span class="source">{{ article.source.name }}</span>
+              <span class="date">{{ article.publishedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pagination -->
+    <section class="pagination-section" *ngIf="!loading && totalPages > 1">
+      <div class="pagination">
+        <button 
+          class="page-btn prev"
+          [disabled]="currentPage === 1"
+          (click)="changePage(currentPage - 1)">
+          Önceki
+        </button>
+        
+        <button 
+          *ngFor="let page of pages"
+          class="page-btn"
+          [class.active]="page === currentPage"
+          (click)="changePage(page)">
+          {{ page }}
+        </button>
+        
+        <button 
+          class="page-btn next"
+          [disabled]="currentPage === totalPages"
+          (click)="changePage(currentPage + 1)">
+          Sonraki
+        </button>
+      </div>
+      
+      <div class="pagination-info">
+        <p>Toplam {{ totalResults }} sonuç, Sayfa {{ currentPage }} / {{ totalPages }}</p>
+      </div>
+    </section>
+
+    <!-- No Results -->
+    <div class="no-results" *ngIf="!loading && searchQuery && newsArticles.length === 0">
+      <h3>"{{ searchQuery }}" için sonuç bulunamadı</h3>
+      <p>Farklı anahtar kelimeler deneyebilir veya daha genel terimler kullanabilirsiniz.</p>
+    </div>
+  </div>
+</div>

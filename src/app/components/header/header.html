@@ -1,0 +1,56 @@
+<header class="header">
+  <div class="header-top">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <h1>
+            <a routerLink="/" class="logo-link">Uğur Öztürk</a>
+          </h1>
+        </div>
+        <div class="search-box">
+          <input 
+            type="text" 
+            [(ngModel)]="searchQuery" 
+            placeholder="Haber ara..." 
+            (keyup.enter)="onSearch()"
+            class="search-input">
+          <button (click)="onSearch()" class="search-btn">Ara</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <nav class="navbar">
+    <div class="container">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a routerLink="/" [class.active]="isActiveRoute('')" class="nav-link">Ana Sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/category/business" [class.active]="isActiveRoute('/category/business')" class="nav-link">İş Dünyası</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/category/entertainment" [class.active]="isActiveRoute('/category/entertainment')" class="nav-link">Eğlence</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/category/general" [class.active]="isActiveRoute('/category/general')" class="nav-link">Genel</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/category/health" [class.active]="isActiveRoute('/category/health')" class="nav-link">Sağlık</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/category/science" [class.active]="isActiveRoute('/category/science')" class="nav-link">Bilim</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/category/sports" [class.active]="isActiveRoute('/category/sports')" class="nav-link">Spor</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/category/technology" [class.active]="isActiveRoute('/category/technology')" class="nav-link">Teknoloji</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/about" [class.active]="isActiveRoute('/about')" class="nav-link">Hakkımda</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
