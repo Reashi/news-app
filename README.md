@@ -1,59 +1,202 @@
-# NewsApp
+# 📰 Angular News Website
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+Modern ve responsive haber portalı uygulaması. NewsAPI kullanarak gerçek zamanlı haber verileri çeker ve kullanıcı dostu bir arayüzle sunar.
 
-## Development server
+## 🎯 Özellikler
 
-To start a local development server, run:
+### ✨ Ana Özellikler
+- 📰 **Ana Sayfa**: Slider ile öne çıkan haberler ve haber grid'i
+- 🏷️ **Kategori Sayfaları**: 7 farklı kategori (İş Dünyası, Eğlence, Genel, Sağlık, Bilim, Spor, Teknoloji)
+- 🔍 **Arama Fonksiyonu**: Header'da bulunan arama kutusu
+- 📄 **Sayfalama**: Tüm sayfalarda pagination desteği
+- 👤 **Hakkımda Sayfası**: CV tarzında kişisel portfolio
+- 📱 **Responsive Design**: Mobil ve tablet uyumlu
 
+### 🛠️ Teknik Özellikler
+- ⚡ Angular 20 Standalone Components
+- 🔄 RxJS ile reactive programming
+- 🎨 Modern CSS Grid ve Flexbox layout
+- 🌐 CORS proxy konfigürasyonu
+- 📡 NewsAPI.org entegrasyonu
+- 🎭 Loading states ve error handling
+
+## 🚀 Canlı Demo
+
+[🌐 Live Demo](https://reashi.github.io/news-app/)
+
+## 📸 Ekran Görüntüleri
+
+### Ana Sayfa
+![Ana Sayfa](./screenshots/homepage.png)
+
+### Kategori Sayfası  
+![Kategori Sayfası](./screenshots/category.png)
+
+### Arama Sonuçları
+![Arama Sonuçları](./screenshots/search.png)
+
+### Hakkımda Sayfası
+![Hakkımda](./screenshots/about.png)
+
+### Mobil Görünüm
+![Mobil](./screenshots/mobile.png)
+
+## 🛠️ Teknolojiler
+
+### Frontend
+- **Angular 20.0.0** - Ana framework
+- **TypeScript** - Programlama dili
+- **RxJS** - Reactive programming
+- **CSS3** - Styling (Grid, Flexbox, Animations)
+- **HTML5** - Markup
+
+### API & Data
+- **NewsAPI.org** - Haber veri kaynağı
+- **HTTP Client** - API çağrıları
+- **CORS Proxy** - Cross-origin sorunları için
+
+### Development Tools
+- **Angular CLI** - Development server ve build
+- **npm** - Package management
+- **Git** - Version control
+
+## ⚙️ Kurulum
+
+### Ön Gereksinimler
+- Node.js (v18+)
+- npm veya yarn
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Kurulum Adımları
+
+1. **Repository'yi klonlayın:**
 ```bash
-ng serve
+git clone https://github.com/Reashi/news-app.git
+cd news-app
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. **Bağımlılıkları yükleyin:**
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. **NewsAPI key'inizi ekleyin:**
+   - [NewsAPI.org](https://newsapi.org) adresinden ücretsiz API key alın
+   - `src/app/services/news.ts` dosyasında `apiKey` değişkenini güncelleyin
 
+4. **Development server'ı başlatın:**
 ```bash
-ng generate --help
+npm run start:proxy
 ```
 
-## Building
+5. **Tarayıcıda açın:**
+   - http://localhost:4200 adresine gidin
 
-To build the project run:
+## 📁 Proje Yapısı
 
-```bash
-ng build
+```
+news-app/
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── header/          # Navigation ve arama
+│   │   │   └── slider/          # Ana sayfa slider
+│   │   ├── pages/
+│   │   │   ├── home/            # Ana sayfa
+│   │   │   ├── category/        # Kategori sayfaları
+│   │   │   ├── search/          # Arama sonuçları
+│   │   │   └── about/           # Hakkımda sayfası
+│   │   ├── services/
+│   │   │   └── news.ts          # NewsAPI servisi
+│   │   └── app.routes.ts        # Route konfigürasyonu
+│   ├── styles.css               # Global stiller
+│   └── main.ts                  # Ana bootstrap dosyası
+├── proxy.conf.json              # CORS proxy ayarları
+└── package.json                 # Dependencies
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🔧 Özellikler Detayı
 
-## Running unit tests
+### Slider Component
+- Otomatik geçiş (5 saniye)
+- Manual navigasyon (ok tuşları)
+- Dot navigation
+- İlk 3 haber gösterimi
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Kategori Filtreleme
+- Sol sidebar ile filtreleme
+- Tarih ve başlık sıralaması
+- Tarih aralığı filtreleme
+- Filtreleri temizleme
 
+### Arama Sistemi
+- Header'da global arama kutusu
+- Enter ile arama
+- URL query parameter desteği
+- Sonuç sayısı gösterimi
+
+### Responsive Design
+- Mobile-first yaklaşım
+- Tablet ve mobil optimizasyonu
+- CSS Grid ile adaptive layout
+- Touch-friendly interface
+
+## 🚨 Bilinen Sorunlar
+
+### CORS Sorunu
+NewsAPI localhost'tan direkt çağrılırken CORS hatası verir. Bu nedenle:
+- Development'ta proxy kullanıyoruz (`npm run start:proxy`)
+- Production'da CORS proxy servisi gerekli
+
+### Çözümler
+1. **Proxy Konfigürasyonu** (Önerilen)
+2. **CORS Proxy Servisi** (cors-anywhere.herokuapp.com)
+3. **Backend Proxy** (Kendi sunucunuz)
+
+## 📦 Build ve Deploy
+
+### Development
 ```bash
-ng test
+npm run start:proxy    # Proxy ile development server
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+### Production Build
 ```bash
-ng e2e
+ng build --configuration production
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### GitHub Pages Deploy
+```bash
+ng build --base-href "/news-app/"
+npx angular-cli-ghpages --dir=dist/news-app
+```
 
-## Additional Resources
+## 🤝 Katkıda Bulunma
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Fork yapın
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Commit yapın (`git commit -m 'Add amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Pull Request açın
+
+## 📝 License
+
+Bu proje MIT License altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasını inceleyin.
+
+## 👨‍💻 Geliştirici
+
+**Uğur Öztürk**
+- Portfolio: [reashi.github.io](https://reashi.github.io)
+- LinkedIn: [linkedin.com/in/reashi](https://www.linkedin.com/in/reashi/)
+- GitHub: [github.com/Reashi](https://github.com/Reashi)
+- Email: ozturk-ugur@outlook.com
+
+## 🙏 Teşekkürler
+
+- [NewsAPI.org](https://newsapi.org) - Haber verisi için
+- [Angular Team](https://angular.io) - Harika framework için
+- [GitHub Pages](https://pages.github.com) - Ücretsiz hosting için
+
+---
+
+⭐ Bu projeyi beğendiyseniz star vermeyi unutmayın!
