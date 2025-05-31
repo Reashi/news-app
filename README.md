@@ -20,10 +20,6 @@ Modern ve responsive haber portalı uygulaması. NewsAPI kullanarak gerçek zama
 - 📡 NewsAPI.org entegrasyonu
 - 🎭 Loading states ve error handling
 
-## 🚀 Canlı Demo
-
-[🌐 Live Demo](https://reashi.github.io/news-app/)
-
 ## 📸 Ekran Görüntüleri
 
 ### Ana Sayfa
@@ -144,14 +140,12 @@ news-app/
 ## 🚨 Bilinen Sorunlar
 
 ### CORS Sorunu
-NewsAPI localhost'tan direkt çağrılırken CORS hatası verir. Bu nedenle:
-- Development'ta proxy kullanıyoruz (`npm run start:proxy`)
-- Production'da CORS proxy servisi gerekli
+NewsAPI ücretsiz planı sadece localhost'tan isteklere izin verir. Production deployment için:
 
 ### Çözümler
-1. **Proxy Konfigürasyonu** (Önerilen)
-2. **CORS Proxy Servisi** (cors-anywhere.herokuapp.com)
-3. **Backend Proxy** (Kendi sunucunuz)
+1. **Kendi Backend Sunucusu** (Önerilen - CORS bypass)
+2. **Alternatif API'lar** (The Guardian, NYT vb.)
+3. **NewsAPI Pro Plan** (Production domain'i whitelist)
 
 ## 📦 Build ve Deploy
 
@@ -163,12 +157,6 @@ npm run start:proxy    # Proxy ile development server
 ### Production Build
 ```bash
 ng build --configuration production
-```
-
-### GitHub Pages Deploy
-```bash
-ng build --base-href "/news-app/"
-npx angular-cli-ghpages --dir=dist/news-app
 ```
 
 ## 🤝 Katkıda Bulunma
@@ -200,3 +188,4 @@ Bu proje MIT License altında lisanslanmıştır. Detaylar için [LICENSE](LICEN
 ---
 
 ⭐ Bu projeyi beğendiyseniz star vermeyi unutmayın!
+
