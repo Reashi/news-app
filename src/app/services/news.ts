@@ -26,7 +26,7 @@ export interface NewsResponse {
   providedIn: 'root'
 })
 export class NewsService {
-  private apiKey = '773f6873e8d740b1b4f84d9ecdf01494'; 
+  private apiKey = '676f017549224f488970f1835f9db971'; 
   private baseUrl = 'https://newsapi.org/v2';
 
   constructor(private http: HttpClient) { }
